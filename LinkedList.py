@@ -18,9 +18,11 @@ class LinkedList:
         while node:
             length += 1
             node = node.next
-        return node
+        return length
 
-    @classmethod
+    def __repr__(self):
+        return (node.value for node in self)
+
     def append(self, value):
         if self.head is None:
             self.head = self.tail = Node(value)
@@ -29,7 +31,6 @@ class LinkedList:
             self.tail = self.tail.next
         return self.tail
 
-    @classmethod
     def append_multiple_nodes(self, values):
         try:
             for value in values:
@@ -38,7 +39,6 @@ class LinkedList:
             self.append(values)
         return self.tail
 
-    @classmethod
     def prepend(self, value):
         if self.head is None:
             self.head = self.tail = Node(value)
@@ -55,6 +55,16 @@ class LinkedList:
     def values(self):
         return (node.value for node in self)
 
+    def __eq__(self, other):
+        if not isinstance(other, LinkedList):
+            return False
+        if len(self) != len(other):
+            return False
+        for s_node, o_node in zip(self, other):
+            if s_node != o_node:
+                return False
+        return True
+
 
 class Node:
 
@@ -64,3 +74,8 @@ class Node:
 
     def __str__(self):
         return str(self.data)
+
+    def __eq__(self, other):
+        if not isinstance(other, Node):
+            return False
+        return self.data == other.data

@@ -3,11 +3,11 @@
 # a single digit. The digits are stored in reverse order, such that the 1's
 # digit is at the head of the list. Write a function that adds the two numbers
 # and returns the sum as a linked list.
-from LinkedList.py import LinkedList, Node
+from LinkedList import LinkedList, Node
 
 
 def sum_lists(one, two):
-    node1, node2 = one, two
+    node1, node2 = one.head, two.head
     tail = head = Node()
     carry = False
 
@@ -39,48 +39,20 @@ def sum_lists(one, two):
     if carry:
         tail.next = Node(1)
 
+    #TODO: handle if all remaining nodes are zero
     while nodes:
         tail.next = Node(nodes.data)
         tail = tail.next
         nodes = nodes.next
+    ans = LinkedList()
+    ans.head = head.next
+    ans.tail = ans.head
+    while ans.tail.next:
+        ans.tail = ans.tail.next
+    return ans
 
-    return head.next
 
-
-list1 = next = Node(1)
-next.next = Node(2)
-next = next.next
-next.next = Node(3)
-next = next.next
-next.next = Node(4)
-next = next.next
-next.next = Node(8)
-next = next.next
-next.next = Node(9)
-next = next.next
-next.next = Node(1)
-
-print(list1)
-
-# next = list1
-# while next:
-#     print(next.data, end=" ")
-#     next = next.next
-# print()
-
-# list2 = next = Node(5)
-# next.next = Node(6)
-# next = next.next
-# next.next = Node(7)
-
-# next = list2
-# while next:
-#     print(next.data, end=" ")
-#     next = next.next
-# print()
-
-# result = sum_lists(list1, list2)
-# next = result
-# while next:
-#     print(next.data, end=" ")
-#     next = next.next
+list1 = LinkedList((1, 2, 3, 4))
+list2 = LinkedList((4, 5, 6, 7))
+result = sum_lists(list1, list2)
+print(result)
