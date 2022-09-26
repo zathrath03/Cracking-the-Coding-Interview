@@ -21,7 +21,7 @@ class LinkedList:
         return length
 
     def __repr__(self):
-        return (node.value for node in self)
+        return f'LinkedList({"->".join(node.value for node in self)})'
 
     def append(self, value):
         if self.head is None:
